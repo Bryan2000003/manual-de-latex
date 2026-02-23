@@ -1,0 +1,316 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{longtable}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=black
+}
+
+\geometry{margin=2.5cm}
+
+\lstset{
+    language=bash,
+    backgroundcolor=\color{gray!10},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    breaklines=true,
+    frame=single
+}
+
+\title{\textbf{Guía Maestra de Administración y Scripting en Linux}}
+\author{Bryan Mamani}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+%====================================================
+\section{Comandos Básicos}
+
+\subsection{Gestión de Directorios}
+
+\textbf{ls}
+
+El comando \texttt{ls} permite listar el contenido de un directorio. Puede mostrar archivos, carpetas, permisos, tamaños y fechas de modificación dependiendo de las opciones utilizadas. Es uno de los comandos más usados para inspeccionar la estructura del sistema de archivos.
+
+\begin{lstlisting}
+ls
+ls -l /home
+\end{lstlisting}
+
+\textbf{cd}
+
+El comando \texttt{cd} (change directory) se utiliza para cambiar el directorio de trabajo actual. Permite moverse entre rutas absolutas y relativas dentro del sistema.
+
+\begin{lstlisting}
+cd Documentos
+cd ..
+\end{lstlisting}
+
+\textbf{mkdir}
+
+El comando \texttt{mkdir} crea nuevos directorios. Puede generar uno o varios directorios y también crear estructuras completas usando la opción \texttt{-p}.
+
+\begin{lstlisting}
+mkdir proyectos
+mkdir -p curso/linux/bash
+\end{lstlisting}
+
+\textbf{pwd}
+
+El comando \texttt{pwd} (print working directory) muestra la ruta absoluta del directorio actual. Es útil para saber exactamente en qué ubicación del sistema estamos trabajando.
+
+\begin{lstlisting}
+pwd
+pwd -P
+\end{lstlisting}
+
+%====================================================
+\subsection{Manipulación de Archivos}
+
+\textbf{cp}
+
+El comando \texttt{cp} permite copiar archivos y directorios. Puede trabajar de forma recursiva con la opción \texttt{-r} cuando se trata de carpetas.
+
+\begin{lstlisting}
+cp archivo.txt copia.txt
+cp -r carpeta respaldo/
+\end{lstlisting}
+
+\textbf{mv}
+
+El comando \texttt{mv} mueve o renombra archivos y directorios. Es útil tanto para reorganizar archivos como para cambiar su nombre.
+
+\begin{lstlisting}
+mv archivo.txt nuevo.txt
+mv archivo.txt /tmp
+\end{lstlisting}
+
+\textbf{rm}
+
+El comando \texttt{rm} elimina archivos o directorios. Para eliminar carpetas se debe usar la opción \texttt{-r} (recursivo).
+
+\begin{lstlisting}
+rm archivo.txt
+rm -r carpeta
+\end{lstlisting}
+
+\textbf{touch}
+
+El comando \texttt{touch} crea archivos vacíos o actualiza la fecha de modificación de un archivo existente.
+
+\begin{lstlisting}
+touch nuevo.txt
+touch archivo{1..3}.txt
+\end{lstlisting}
+
+\textbf{cat}
+
+El comando \texttt{cat} muestra el contenido de archivos en pantalla y también puede combinar múltiples archivos.
+
+\begin{lstlisting}
+cat archivo.txt
+cat archivo1.txt archivo2.txt
+\end{lstlisting}
+
+%====================================================
+\subsection{Ayuda y Manuales}
+
+\textbf{man}
+
+El comando \texttt{man} muestra el manual oficial de un comando, incluyendo descripción, opciones y ejemplos.
+
+\begin{lstlisting}
+man ls
+man chmod
+\end{lstlisting}
+
+\textbf{help}
+
+El comando \texttt{help} muestra ayuda interna para comandos integrados en Bash.
+
+\begin{lstlisting}
+help cd
+help echo
+\end{lstlisting}
+
+%====================================================
+\section{Comandos Avanzados}
+
+\subsection{Permisos y Propietarios}
+
+\textbf{chmod}
+
+El comando \texttt{chmod} modifica los permisos de lectura (r), escritura (w) y ejecución (x) de archivos y directorios, ya sea en formato simbólico o numérico.
+
+\begin{lstlisting}
+chmod 755 script.sh
+chmod +x script.sh
+\end{lstlisting}
+
+\textbf{chown}
+
+El comando \texttt{chown} cambia el propietario y/o grupo de un archivo o directorio.
+
+\begin{lstlisting}
+chown usuario archivo.txt
+chown usuario:grupo archivo.txt
+\end{lstlisting}
+
+%====================================================
+\subsection{Filtros y Procesamiento}
+
+\textbf{grep}
+
+Busca patrones de texto dentro de archivos. Es muy usado para filtrar información específica.
+
+\begin{lstlisting}
+grep "error" archivo.log
+grep -i linux archivo.txt
+\end{lstlisting}
+
+\textbf{find}
+
+Busca archivos y directorios según nombre, tipo o fecha.
+
+\begin{lstlisting}
+find . -name "*.txt"
+find /home -type d
+\end{lstlisting}
+
+\textbf{head}
+
+Muestra las primeras líneas de un archivo.
+
+\begin{lstlisting}
+head archivo.txt
+head -n 5 archivo.txt
+\end{lstlisting}
+
+\textbf{tail}
+
+Muestra las últimas líneas y puede monitorear archivos en tiempo real.
+
+\begin{lstlisting}
+tail archivo.txt
+tail -f log.txt
+\end{lstlisting}
+
+\textbf{sort}
+
+Ordena líneas de texto alfabéticamente o numéricamente.
+
+\begin{lstlisting}
+sort archivo.txt
+sort -r archivo.txt
+\end{lstlisting}
+
+\textbf{wc}
+
+Cuenta líneas, palabras y caracteres de un archivo.
+
+\begin{lstlisting}
+wc archivo.txt
+wc -l archivo.txt
+\end{lstlisting}
+
+%====================================================
+\section{Programación Shell}
+
+\subsection{Estructura Básica}
+
+Todo script Bash comienza con el \textbf{shebang}, que indica qué intérprete ejecutará el archivo.
+
+\begin{lstlisting}
+#!/bin/bash
+echo "Hola Mundo"
+\end{lstlisting}
+
+\subsection{Variables y Argumentos}
+
+Las variables almacenan datos y los argumentos permiten recibir información desde la línea de comandos.
+
+\begin{lstlisting}
+#!/bin/bash
+nombre=$1
+echo "Hola $nombre"
+\end{lstlisting}
+
+\subsection{Estructuras de Control}
+
+\textbf{if-else}
+\begin{lstlisting}
+if [ $1 -gt 10 ]; then
+  echo "Mayor que 10"
+else
+  echo "Menor o igual a 10"
+fi
+\end{lstlisting}
+
+\textbf{for}
+\begin{lstlisting}
+for i in {1..5}
+do
+  echo $i
+done
+\end{lstlisting}
+
+\textbf{while}
+\begin{lstlisting}
+contador=1
+while [ $contador -le 5 ]
+do
+  echo $contador
+  contador=$((contador+1))
+done
+\end{lstlisting}
+
+%====================================================
+\section{Tuberías y Redireccionamientos}
+
+En Linux todo funciona como flujo de datos. Los procesos reciben información (stdin), generan salida (stdout) y errores (stderr).
+
+\textbf{|} Conecta la salida de un comando con la entrada de otro.
+\begin{lstlisting}
+ls | grep ".txt"
+\end{lstlisting}
+
+\textbf{>} Redirige la salida sobrescribiendo.
+\begin{lstlisting}
+ls > lista.txt
+\end{lstlisting}
+
+\textbf{>} Añade información sin borrar contenido previo.
+\begin{lstlisting}
+echo "Hola" >> archivo.txt
+\end{lstlisting}
+
+\textbf{2>} Redirige errores.
+\begin{lstlisting}
+ls directorio_inexistente 2> errores.log
+\end{lstlisting}
+
+%====================================================
+\section{Anexo de Transparencia IA}
+
+\begin{longtable}{|p{4cm}|p{6cm}|p{4cm}|}
+\hline
+IA Utilizada & Prompt enviado & Parte generada \\ \hline
+ChatGPT & "Para la elaboración de este manual, realicé la investigación de los comandos, su funcionamiento, ejemplos prácticos y el análisis de errores comunes por cuenta propia.   
+" & La inteligencia artificial fue utilizada únicamente como apoyo para dar formato en LaTeX y mejorar la redacción en algunas secciones, con el fin de que el documento tenga una presentación más clara y ordenada.  \\ \hline
+\end{longtable}
+
+\end{document}
